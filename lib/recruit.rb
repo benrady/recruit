@@ -15,6 +15,7 @@ class Recruit
   attr_accessor :template
 
   def self.create_resume(*args)
+    APICache.store=APICache::MemoryStore.new
     recruit = Recruit.new
     recruit.find_user_data(args[0])
     recruit.load_template

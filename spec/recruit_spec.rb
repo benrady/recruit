@@ -9,6 +9,7 @@ describe "Recruit" do
   describe "creates a resume" do
 
     it "given a username" do
+      # Integration test. Not sure this belongs here, but it reads well and runs pretty fast.
       Recruit.create_resume("benrady").should match /<li>Ben Rady<\/li>/
     end
 
