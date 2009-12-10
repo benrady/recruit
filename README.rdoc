@@ -1,6 +1,6 @@
 = recruit
 
-Description goes here.
+Generates and HTML resume from the info in a github account
 
 == Note on Patches/Pull Requests
  

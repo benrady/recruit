@@ -5,10 +5,10 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "recruit"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{Generates a resume from a github account}
+    gem.description = %Q{Generates a resume, given a github username}
     gem.email = "benrady@gmail.com"
-    gem.homepage = "http://github.com/bjrady/recruit"
+    gem.homepage = "http://github.com/benrady/recruit"
     gem.authors = ["Ben Rady"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings

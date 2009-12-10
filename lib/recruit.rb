@@ -14,6 +14,13 @@ class Recruit
 
   attr_accessor :template
 
+  def self.create_resume(*args)
+    recruit = Recruit.new
+    recruit.find_user_data(args[0])
+    recruit.load_template
+    recruit.generate_resume
+  end
+
   def find_user_data(github_user_name)
     user = User.find(github_user_name)
 
@@ -22,6 +29,10 @@ class Recruit
       :email => user.email,
       :blog_url => user.blog
     }
+  end
+
+  def load_template
+      @template = File.open(File.join(File.dirname(__FILE__), 'templates', 'default.haml')).read
   end
 
   def generate_resume
