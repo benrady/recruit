@@ -3,39 +3,47 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 describe "Recruit" do
 
   before( :each ) do
-    user = Octopi::User.new
-    user.name = "Ben Rady"
-    user.email = "benrady@gmail.com"
-    user.blog = "benrady.com"
-    Octopi::User.should_receive(:find).and_return(user)
-    @recruit = Recruit.new("benrady")
+    @recruit = Recruit.new()
   end
 
   describe "creates a resume from your github account" do
 
+    before( :each ) do
+      user = Octopi::User.new
+      user.name = "Ben Rady"
+      user.email = "benrady@gmail.com"
+      user.blog = "benrady.com"
+      Octopi::User.should_receive(:find).and_return(user)
+
+      @recruit.find_user_data("benrady")
+      @resume_data = @recruit.scope
+    end
+
     it "with your name" do
-      @recruit.name.should == "Ben Rady"
+      @resume_data.name.should == "Ben Rady"
     end
 
     it "with your email" do
-      @recruit.email.should == "benrady@gmail.com"
+      @resume_data.email.should == "benrady@gmail.com"
     end
 
     it "with your blog url" do
-      @recruit.blog.should == "benrady.com"
+      @resume_data.blog_url.should == "benrady.com"
     end
 
   end
 
   describe "uses HAML templates" do
+
     it "to create a resume" do
       @recruit.template = "%p= name"
+      resume_markup = "<p>Name</p>"
       haml_engine = mock("HamlEngine")
 
-      haml_engine.should_receive(:render).with(@recruit)
       Haml::Engine.should_receive(:new).with(@recruit.template).and_return(haml_engine)
+      haml_engine.should_receive(:render).with(@recruit.scope).and_return(resume_markup)
 
-      @recruit.generate_resume()
+      @recruit.generate_resume().should be resume_markup
     end
 
   end

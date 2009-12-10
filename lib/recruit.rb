@@ -10,20 +10,22 @@ class Recruit
   attr_reader :name
   attr_reader :email
   attr_reader :blog
+  attr_reader :scope
 
   attr_accessor :template
 
-  def initialize(github_user_name)
+  def find_user_data(github_user_name)
     user = User.find(github_user_name)
 
-    # DEBT There must be a better way
-    @name = user.name
-    @email = user.email
-    @blog = user.blog
+    @scope = {
+      :name => user.name,
+      :email => user.email,
+      :blog_url => user.blog
+    }
   end
 
   def generate_resume
-    Engine.new(@template).render(self)
+    Engine.new(@template).render(@scope)
   end
 
 end
